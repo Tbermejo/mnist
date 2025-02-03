@@ -1,3 +1,4 @@
+
 import streamlit as st
 from PIL import Image
 from tensorflow.keras.preprocessing.image import img_to_array
@@ -13,7 +14,7 @@ def preprocess_image(image):
     return image_array
 
 def load_model():
-    filename = "model_trained_classifier.pkl.gz"
+    filename = "model_trained.pkl.gz"
     with gzip.open(filename, 'rb') as f:
         model = pickle.load(f)
     return model
@@ -43,7 +44,6 @@ def main():
             prediction = model.predict(preprocessed_image)
             predicted_label = np.argmax(prediction)  # Obtener la clase con mayor probabilidad
             st.sidebar.success(f"🔢 La imagen fue clasificada como: {predicted_label}, que corresponde al número '{predicted_label}'.")
-
 
 if __name__ == "__main__":
     main()
