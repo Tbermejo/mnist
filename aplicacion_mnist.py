@@ -6,11 +6,6 @@ import numpy as np
 import gzip
 import pickle
 
-[theme]
-primaryColor = "#0000FF"
-backgroundColor = "#FFFFFF"
-secondaryBackgroundColor = "#F0F0F0"
-textColor = "#000000"
 
 def preprocess_image(image):
     image = image.convert('L')  # Convertir a escala de grises
