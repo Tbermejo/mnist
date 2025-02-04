@@ -32,8 +32,10 @@ def main():
 
     Posteriormente, se aplicó **GridSearchCV**, una herramienta de `scikit-learn` que permite probar todas las combinaciones posibles de hiperparámetros mediante validación cruzada. Esto aseguró que el modelo no solo se ajustara correctamente a los datos de entrenamiento, sino que también tuviera un buen desempeño en datos de prueba.
 
-    Una vez identificado el mejor conjunto de hiperparámetros, el modelo óptimo fue entrenado con la totalidad de los datos de entrenamiento y evaluado sobre el conjunto de prueba. Para medir su desempeño, se calcularon métricas clave como la **precisión (accuracy)**, además de visualizar su comportamiento mediante una **matriz de confusión y la curva ROC**.
-    
+    Una vez identificado el mejor conjunto de hiperparámetros, el modelo óptimo fue entrenado con la totalidad de los datos de entrenamiento y evaluado sobre el conjunto de prueba. Para medir su desempeño, se calcularon métricas clave como la **precisión (accuracy)**, además de visualizar su comportamiento mediante una **matriz de confusión y la curva ROC**.""")
+
+    # Agregar imagen desde un archivo local
+    st.image("ACC_SVC.png", caption="Matriz de confusión", use_column_width=True)
     
     st.markdown("### Sube una imagen y el modelo la clasificará en una de las 10 categorías del dataset MNIST.")
     
