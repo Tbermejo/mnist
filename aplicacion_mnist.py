@@ -28,7 +28,13 @@ def main():
 
     En este análisis, se implementó un proceso iterativo para encontrar el mejor modelo de clasificación utilizando el Clasificador Naive Bayes (`GaussianNB`)**, Árboles de decisión (`DecisionTreeClassifier`)**, **Máquinas de Soporte Vectorial (SVM)**, entre otros. Para ello, se realizó una búsqueda de hiperparámetros mediante la técnica de **Grid Search con validación cruzada**, con el objetivo de optimizar la precisión del modelo y mejorar su capacidad de generalización.
 
-    Una vez identificado el mejor conjunto de hiperparámetros, el modelo óptimo fue entrenado con la totalidad de los datos de entrenamiento y evaluado sobre el conjunto de prueba. Para medir su desempeño, se calcularon métricas clave como la **precisión (accuracy)**, además de visualizar su comportamiento mediante una **matriz de confusión y la curva ROC**.""")
+    Una vez identificado el mejor conjunto de hiperparámetros: (\n)
+    **Datos de test:**  0.9175 (\n)
+    **Datos de train:**  0.9152 (\n)
+    **Mejor hiperparámetro:** {'C': 10, 'gamma': 'scale', 'kernel': 'rbf'} (\n)
+    **Mejor precisión:** 0.907 (\n)
+    **Kernel utilizado:** rbf (\n)
+    el modelo óptimo fue entrenado con la totalidad de los datos de entrenamiento y evaluado sobre el conjunto de prueba. Para medir su desempeño, se calcularon métricas clave como la **precisión (accuracy)**, además de visualizar su comportamiento mediante una **matriz de confusión y la curva ROC**.""")
 
     # Agregar imagen desde un archivo local
     st.image("ACC_SVC.png", caption="Matriz de confusión", use_container_width=True)
