@@ -1,8 +1,6 @@
-tensorflow
-scikit-learn
-seaborn
 streamlit
 Pillow
+tensorflow
 numpy
 matplotlib
 seaborn
