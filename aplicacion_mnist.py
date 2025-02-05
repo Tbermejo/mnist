@@ -35,19 +35,21 @@ def main():
     **Mejor precisión:** 0.907 \n
     **Kernel utilizado:** rbf \n
     el modelo óptimo fue entrenado con la totalidad de los datos de entrenamiento y evaluado sobre el conjunto de prueba. Para medir su desempeño, se calcularon métricas clave como la **precisión (accuracy)**, además de visualizar su comportamiento mediante una **matriz de confusión y la curva ROC**.""")
+    
 
-    # Agregar imagen desde un archivo local
-    col1, col2 = st.columns(2)
+    # Cargar imágenes
+    img1 = Image.open("ACC_SVC.png").resize((300, 300))
+    img2 = Image.open("ROC curve SVC.png").resize((300, 300))
 
+    # Mostrar imágenes en dos columnas
     col1, col2 = st.columns(2)
     with col1:
-        st.image("ACC_SVC.png", caption="Matriz de confusión", use_container_width=True)
+        st.image(img1, caption="Matriz de confusión", use_container_width=True)
     with col2:
-        st.image("ROC curve SVC.png", caption="Curva ROC", use_container_width=True)
-
+        st.image(img2, caption="Curva ROC", use_container_width=True)
     
-    st.markdown("### ube una imagen y el modelo la clasificará en una de las 10 categorías del dataset MNIST.")
-    st.write("""⬅️En la barra lateral izquierda""")
+    st.markdown("### Sube una imagen y el modelo la clasificará en una de las 10 categorías del dataset MNIST.")
+    st.write("""⬅️Ahora intenta clasificar tus imágenes en la barra lateral izquierda.""")
     st.sidebar.header("Carga de Imagen")
     uploaded_file = st.sidebar.file_uploader("Selecciona una imagen (PNG, JPG, JPEG):", type=["jpg", "png", "jpeg"])
     
