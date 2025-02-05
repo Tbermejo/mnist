@@ -1,4 +1,27 @@
+import streamlit as st
+from PIL import Image
+from tensorflow.keras.preprocessing.image import img_to_array
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+import gzip
+import pickle
+from sklearn.metrics import confusion_matrix, roc_curve, auc
+from io import BytesIO
 
+def preprocess_image(image):
+    image = image.convert('L')  # Convertir a escala de grises
+    image = image.resize((28, 28))
+    image_array = img_to_array(image) / 255.0
+    image_array = image_array.reshape(1, 28 * 28)  # Ajustar dimensiones para el modelo
+    return image_array
+
+def load_model():
+    filename = "model_trained_classifier_SVC_MinMaxScaler.pkl.gz"
+    with gzip.open(filename, 'rb') as f:
+        model = pickle.load(f)
+    return model
+    
 def main():
     st.set_page_config(page_title="Clasificación MNIST", layout="wide")
     st.title("🖼️ Clasificación de imágenes MNIST")
