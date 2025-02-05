@@ -60,8 +60,8 @@ def main():
         if st.sidebar.button("Clasificar imagen"):
             model = load_model()
             prediction = model.predict(preprocessed_image)
-            predicted_label = np.argmax(prediction)  # Obtener la clase con mayor probabilidad
-            st.sidebar.success(f"🔢 La imagen fue clasificada como: {predicted_label}, que corresponde al número '{predicted_label}'.")
+            st.sidebar.success(f"🔢 La imagen fue clasificada como: '{prediction}'.") 
+            
 
 if __name__ == "__main__":
     main()
