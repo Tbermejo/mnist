@@ -43,7 +43,7 @@ def main():
     with col1:
     st.image("ACC_SVC.png", caption="Matriz de confusión", use_container_width=True)
     with col2:
-    st.image("otra_imagen.png", caption="Otra imagen", use_container_width=True)
+    st.image("ROC curve SVC.png", caption="Curva ROC", use_container_width=True)
 
     
     st.markdown("### Sube una imagen y el modelo la clasificará en una de las 10 categorías del dataset MNIST.")
