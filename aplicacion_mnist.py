@@ -46,8 +46,8 @@ def main():
         st.image("ROC curve SVC.png", caption="Curva ROC", use_container_width=True)
 
     
-    st.markdown("### Sube una imagen y el modelo la clasificará en una de las 10 categorías del dataset MNIST.")
-    
+    st.markdown("### ube una imagen y el modelo la clasificará en una de las 10 categorías del dataset MNIST.")
+    st.write("""⬅️En la barra lateral izquierda""")
     st.sidebar.header("Carga de Imagen")
     uploaded_file = st.sidebar.file_uploader("Selecciona una imagen (PNG, JPG, JPEG):", type=["jpg", "png", "jpeg"])
     
