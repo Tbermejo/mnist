@@ -107,3 +107,5 @@ def main():
             model = load_model()
             prediction = model.predict(preprocessed_image)
             st.sidebar.success(f"🔢 La imagen fue clasificada como: '{prediction}'.")
+if __name__ == "__main__":
+    main()
