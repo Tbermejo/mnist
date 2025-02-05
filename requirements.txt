@@ -1,2 +1,11 @@
 tensorflow
 scikit-learn
+seaborn
+streamlit
+Pillow
+numpy
+matplotlib
+seaborn
+scikit-learn
+gzip
+pickle-mixin
