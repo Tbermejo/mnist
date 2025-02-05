@@ -15,12 +15,12 @@ def main():
     **Kernel utilizado:** rbf \n
     El modelo óptimo fue entrenado con la totalidad de los datos de entrenamiento y evaluado sobre el conjunto de prueba. Para medir su desempeño, se calcularon métricas clave como la **precisión (accuracy)**, además de visualizar su comportamiento mediante una **matriz de confusión y la curva ROC**.""")
 
-    # 🔹 Simulación de valores reales y predichos para la matriz de confusión y la curva ROC
+    #Simulación de valores reales y predichos para la matriz de confusión y la curva ROC
     y_true = np.random.randint(0, 2, 100)  # Valores reales (0 o 1)
     y_pred = np.random.randint(0, 2, 100)  # Predicciones (0 o 1)
     y_scores = np.random.rand(100)  # Probabilidades del modelo para clase positiva
 
-    # 🔹 Función para graficar la matriz de confusión
+    #Función para graficar la matriz de confusión
     def plot_confusion_matrix(y_true, y_pred):
         cm = confusion_matrix(y_true, y_pred)
         fig, ax = plt.subplots(figsize=(4, 4))
@@ -30,7 +30,7 @@ def main():
         ax.set_title('Matriz de Confusión')
         return fig
 
-    # 🔹 Función para graficar la curva ROC
+    #Función para graficar la curva ROC
     def plot_roc_curve(y_true, y_scores):
         fpr, tpr, _ = roc_curve(y_true, y_scores)
         roc_auc = auc(fpr, tpr)
@@ -44,7 +44,7 @@ def main():
         ax.legend(loc='lower right')
         return fig
 
-    # 🔹 Convertir gráficos en imágenes para Streamlit
+    #Convertir gráficos en imágenes para Streamlit
     def fig_to_image(fig):
         buf = BytesIO()
         fig.savefig(buf, format="png")
