@@ -39,10 +39,10 @@ def main():
     # Agregar imagen desde un archivo local
     col1, col2 = st.columns(2)
 
-    with col1:
+with col1:
     st.image("ACC_SVC.png", caption="Matriz de confusión", use_container_width=True)
 
-    with col2:
+with col2:
     st.image("ROC curve SVC.png", caption="Otra imagen", use_container_width=True)
 
     
