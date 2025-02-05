@@ -1,9 +1,7 @@
 streamlit
-Pillow
 tensorflow
 numpy
 matplotlib
 seaborn
 scikit-learn
-gzip
-pickle-mixin
+
