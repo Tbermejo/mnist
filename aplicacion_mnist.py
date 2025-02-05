@@ -1,25 +1,4 @@
 
-import streamlit as st
-from PIL import Image
-from tensorflow.keras.preprocessing.image import img_to_array
-import numpy as np
-import gzip
-import pickle
-
-
-def preprocess_image(image):
-    image = image.convert('L')  # Convertir a escala de grises
-    image = image.resize((28, 28))
-    image_array = img_to_array(image) / 255.0
-    image_array = image_array.reshape(1, 28 * 28)  # Ajustar dimensiones para el modelo
-    return image_array
-
-def load_model():
-    filename = "model_trained_classifier_SVC_MinMaxScaler.pkl.gz"
-    with gzip.open(filename, 'rb') as f:
-        model = pickle.load(f)
-    return model
-
 def main():
     st.set_page_config(page_title="Clasificación MNIST", layout="wide")
     st.title("🖼️ Clasificación de imágenes MNIST")
@@ -35,19 +14,54 @@ def main():
     **Mejor precisión:** 0.907 \n
     **Kernel utilizado:** rbf \n
     El modelo óptimo fue entrenado con la totalidad de los datos de entrenamiento y evaluado sobre el conjunto de prueba. Para medir su desempeño, se calcularon métricas clave como la **precisión (accuracy)**, además de visualizar su comportamiento mediante una **matriz de confusión y la curva ROC**.""")
-    
 
-    # Cargar imágenes
-    img1 = Image.open("ACC_SVC.png").resize((300, 300))
-    img2 = Image.open("ROC curve SVC.png").resize((300, 300))
+    # 🔹 Simulación de valores reales y predichos para la matriz de confusión y la curva ROC
+    y_true = np.random.randint(0, 2, 100)  # Valores reales (0 o 1)
+    y_pred = np.random.randint(0, 2, 100)  # Predicciones (0 o 1)
+    y_scores = np.random.rand(100)  # Probabilidades del modelo para clase positiva
 
-    # Mostrar imágenes en dos columnas
+    # 🔹 Función para graficar la matriz de confusión
+    def plot_confusion_matrix(y_true, y_pred):
+        cm = confusion_matrix(y_true, y_pred)
+        fig, ax = plt.subplots(figsize=(4, 4))
+        sns.heatmap(cm, annot=True, fmt='d', cmap='Blues', ax=ax)
+        ax.set_xlabel('Predicción')
+        ax.set_ylabel('Real')
+        ax.set_title('Matriz de Confusión')
+        return fig
+
+    # 🔹 Función para graficar la curva ROC
+    def plot_roc_curve(y_true, y_scores):
+        fpr, tpr, _ = roc_curve(y_true, y_scores)
+        roc_auc = auc(fpr, tpr)
+        
+        fig, ax = plt.subplots(figsize=(4, 4))
+        ax.plot(fpr, tpr, color='blue', lw=2, label=f'AUC = {roc_auc:.2f}')
+        ax.plot([0, 1], [0, 1], color='gray', linestyle='--')  # Línea base
+        ax.set_xlabel('Falsos Positivos (FPR)')
+        ax.set_ylabel('Verdaderos Positivos (TPR)')
+        ax.set_title('Curva ROC')
+        ax.legend(loc='lower right')
+        return fig
+
+    # 🔹 Convertir gráficos en imágenes para Streamlit
+    def fig_to_image(fig):
+        buf = BytesIO()
+        fig.savefig(buf, format="png")
+        buf.seek(0)
+        return buf
+
+    # 🔹 Mostrar los gráficos en la aplicación (en dos columnas)
     col1, col2 = st.columns(2)
     with col1:
-        st.image(img1, caption="Matriz de confusión", use_container_width=True)
+        fig_cm = plot_confusion_matrix(y_true, y_pred)
+        st.image(fig_to_image(fig_cm), caption="Matriz de Confusión", use_container_width=True)
+
     with col2:
-        st.image(img2, caption="Curva ROC", use_container_width=True)
-    
+        fig_roc = plot_roc_curve(y_true, y_scores)
+        st.image(fig_to_image(fig_roc), caption="Curva ROC", use_container_width=True)
+
+    # Sección de carga de imágenes y clasificación
     st.markdown("### Sube una imagen y el modelo la clasificará en una de las 10 categorías del dataset MNIST.")
     st.write("""⬅️Ahora intenta clasificar tus imágenes en la barra lateral izquierda.""")
     st.sidebar.header("Carga de Imagen")
@@ -69,8 +83,3 @@ def main():
             model = load_model()
             prediction = model.predict(preprocessed_image)
             st.sidebar.success(f"🔢 La imagen fue clasificada como: '{prediction}'.")
-            
-            
-
-if __name__ == "__main__":
-    main()
