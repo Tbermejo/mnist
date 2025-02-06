@@ -57,7 +57,8 @@ def main():
     X_test = scaler.transform(X_test)
 
     #Cargar el modelo previamente entrenado
-    model = load_model()
+    with gzip.open(filename, 'rb') as f:
+        model = pickle.load(f)
 
     #Hacer predicciones sobre el conjunto de prueba
     y_pred = model.predict(X_test)
