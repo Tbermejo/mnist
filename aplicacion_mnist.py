@@ -9,6 +9,7 @@ import pickle
 from sklearn.metrics import confusion_matrix, roc_curve, auc
 from io import BytesIO
 from tensorflow.keras.datasets import mnist
+from sklearn.preprocessing import MinMaxScaler
 
 def preprocess_image(image):
     image = image.convert('L')  # Convertir a escala de grises
