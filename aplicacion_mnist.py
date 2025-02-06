@@ -7,8 +7,6 @@ import seaborn as sns
 import gzip
 import pickle
 
-
-
 def preprocess_image(image):
     image = image.convert('L')  # Convertir a escala de grises
     image = image.resize((28, 28))
@@ -39,7 +37,7 @@ def main():
     El modelo óptimo fue entrenado con la totalidad de los datos de entrenamiento y evaluado sobre el conjunto de prueba. Para medir su desempeño, se calcularon métricas clave como la **precisión (accuracy)**, además de visualizar su comportamiento mediante una **matriz de confusión y la curva ROC**.""")
     
 
-    # Cargar imágenes
+    #Cargar imágenes
     img1 = Image.open("ACC_SVC.png").resize((300, 300))
     img2 = Image.open("ROC curve SVC.png").resize((300, 300))
 
