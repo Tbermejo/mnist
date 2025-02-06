@@ -6,8 +6,8 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import gzip
 import pickle
-from sklearn.metrics import confusion_matrix, roc_curve, auc
-from io import BytesIO
+
+
 
 def preprocess_image(image):
     image = image.convert('L')  # Convertir a escala de grises
