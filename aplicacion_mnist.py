@@ -10,7 +10,7 @@ def preprocess_image(image):
     image = image.convert('L')  # Convertir a escala de grises
     image = image.resize((28, 28))  # Redimensionar la imagen a 28x28
     image_array = img_to_array(image) / 255.0  # Normalizar los valores de píxeles
-    image_array = np.expand_dims(image_array, axis=0)  # Expandir dimensiones para la predicción
+    image_array = image_array.reshape(1, 28 * 28)  # Expandir dimensiones para la predicción
     return image_array
 
 # Cargar el modelo entrenado
@@ -66,12 +66,11 @@ def main():
             st.image(image.convert('L').resize((28, 28)), caption="Imagen preprocesada", use_container_width=True)
         
 
-        if st.button("Clasificar imagen"):
-            st.markdown("Imagen clasificada")
-              model = load_model()
-
-              prediction = model.predict(preprocessed_image.reshape(1,-1)) # (1, 784)
-              st.markdown(f"La imagen fue clasificada como: {prediction}")
+        if st.sidebar.button("Clasificar imagen"):
+            model = load_model()
+            prediction = model.predict(preprocessed_image)
+            st.sidebar.success(f"🔢 La imagen fue clasificada como: '{prediction}'.")
+            
 if __name__ == "__main__":
     main()
 
