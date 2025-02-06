@@ -1,7 +1,5 @@
 streamlit
 tensorflow
-numpy
-matplotlib
 seaborn
 scikit-learn
 
