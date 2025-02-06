@@ -8,7 +8,7 @@ import gzip
 import pickle
 from sklearn.metrics import confusion_matrix, roc_curve, auc
 from io import BytesIO
-
+from tensorflow.keras.datasets import mnist
 
 def preprocess_image(image):
     image = image.convert('L')  # Convertir a escala de grises
@@ -39,34 +39,54 @@ def main():
     **Kernel utilizado:** rbf \n
     El modelo óptimo fue entrenado con la totalidad de los datos de entrenamiento y evaluado sobre el conjunto de prueba. Para medir su desempeño, se calcularon métricas clave como la **precisión (accuracy)**, además de visualizar su comportamiento mediante una **matriz de confusión y la curva ROC**.""")
 
-    #Simulación de valores reales y predichos para la matriz de confusión y la curva ROC
-    y_true = np.random.randint(0, 2, 100)  # Valores reales (0 o 1)
-    y_pred = np.random.randint(0, 2, 100)  # Predicciones (0 o 1)
-    y_scores = np.random.rand(100)  # Probabilidades del modelo para clase positiva
+    #Cargar los datos de MNIST
+    (X_train,y_train),(X_tests,y_test) = mnist.load_data()
+    
+    #Normalizar los datos
+    X_train=X_train/255.0
+    X_test=X_tests/255.0
+    
+    #Aplanar los datos
+    X_train=X_train.reshape(60000,28*28)
+    X_test=X_test.reshape(10000,28*28)
 
-    #Función para graficar la matriz de confusión
-    def plot_confusion_matrix(y_true, y_pred):
-        cm = confusion_matrix(y_true, y_pred)
-        fig, ax = plt.subplots(figsize=(4, 4))
-        sns.heatmap(cm, annot=True, fmt='d', cmap='Blues', ax=ax)
-        ax.set_xlabel('Predicción')
-        ax.set_ylabel('Real')
-        ax.set_title('Matriz de Confusión')
-        return fig
+    #Aplicar MinMaxScaler a los datos para mejorar la precisión del modelo SVC
+    scaler = MinMaxScaler()
+    X_train = scaler.fit_transform(X_train)
+    X_test = scaler.transform(X_test)
 
-    #Función para graficar la curva ROC
-    def plot_roc_curve(y_true, y_scores):
-        fpr, tpr, _ = roc_curve(y_true, y_scores)
-        roc_auc = auc(fpr, tpr)
-        
-        fig, ax = plt.subplots(figsize=(4, 4))
-        ax.plot(fpr, tpr, color='blue', lw=2, label=f'AUC = {roc_auc:.2f}')
-        ax.plot([0, 1], [0, 1], color='gray', linestyle='--')  # Línea base
-        ax.set_xlabel('Falsos Positivos (FPR)')
-        ax.set_ylabel('Verdaderos Positivos (TPR)')
-        ax.set_title('Curva ROC')
-        ax.legend(loc='lower right')
-        return fig
+    #Cargar el modelo previamente entrenado
+    with open('model_trained_classifier_SVC_MinMaxScaler.pkl.gz', 'rb') as f:
+        model = pickle.load(f)
+
+    #Hacer predicciones sobre el conjunto de prueba
+    y_pred = model.predict(X_test)
+    y_pred_prob = model.predict_proba(X_test)[:, 1]  # Probabilidades para la clase positiva
+
+    #Calcular la matriz de confusión
+    cm = confusion_matrix(y_test, y_pred)
+
+    #Calcular la curva ROC
+    fpr, tpr, _ = roc_curve(y_test, y_pred_prob)
+    roc_auc = auc(fpr, tpr)
+
+    #Graficar la matriz de confusión
+    plt.figure(figsize=(6,6))
+    sns.heatmap(cm, annot=True, fmt='d', cmap='Blues', xticklabels=np.arange(10), yticklabels=np.arange(10))
+    plt.xlabel('Predicción')
+    plt.ylabel('Real')
+    plt.title('Matriz de Confusión')
+    plt.show()
+
+    #Graficar la curva ROC
+    plt.figure(figsize=(6,6))
+    plt.plot(fpr, tpr, color='blue', lw=2, label=f'AUC = {roc_auc:.2f}')
+    plt.plot([0, 1], [0, 1], color='gray', linestyle='--')  # Línea de aleatoriedad
+    plt.xlabel('Tasa de Falsos Positivos (FPR)')
+    plt.ylabel('Tasa de Verdaderos Positivos (TPR)')
+    plt.title('Curva ROC')
+    plt.legend(loc='lower right')
+    plt.show()
 
     #Convertir gráficos en imágenes para Streamlit
     def fig_to_image(fig):
@@ -75,7 +95,7 @@ def main():
         buf.seek(0)
         return buf
 
-    # 🔹 Mostrar los gráficos en la aplicación (en dos columnas)
+    #Mostrar los gráficos en la aplicación (en dos columnas)
     col1, col2 = st.columns(2)
     with col1:
         fig_cm = plot_confusion_matrix(y_true, y_pred)
