@@ -57,6 +57,7 @@ def main():
     X_test = scaler.transform(X_test)
 
     #Cargar el modelo previamente entrenado
+    filename = "model_trained_classifier_SVC_MinMaxScaler.pkl.gz"
     with gzip.open(filename, 'rb') as f:
         model = pickle.load(f)
 
