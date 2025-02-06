@@ -22,7 +22,7 @@ def load_model():
 
 # Función principal
 def main():
-     st.set_page_config(page_title="Clasificación MNIST", layout="wide")
+    st.set_page_config(page_title="Clasificación MNIST", layout="wide")
     st.title("🖼️ Clasificación de imágenes MNIST")
     st.write("""
     ### Selección del Mejor Modelo Mediante Búsqueda de Hiperparámetros en diferentes métodos de clasificación.
