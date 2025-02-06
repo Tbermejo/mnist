@@ -27,9 +27,9 @@ def main():
     st.write("""
     ### Selección del Mejor Modelo Mediante Búsqueda de Hiperparámetros en diferentes métodos de clasificación.
 
-    En este análisis, se implementó un proceso iterativo para encontrar el mejor modelo de clasificación utilizando el Clasificador Naive Bayes (GaussianNB)**, Árboles de decisión (DecisionTreeClassifier)**, Máquinas de Soporte Vectorial (SVC)**, entre otros. Para ello, se realizó una búsqueda de hiperparámetros mediante la técnica de **Grid Search con validación cruzada**, con el objetivo de optimizar la precisión del modelo y mejorar su capacidad de generalización.
+    En este análisis, se implementó un proceso iterativo para encontrar el mejor modelo de clasificación utilizando el Clasificador Naive Bayes (GaussianNB)**, Árboles de decisión (DecisionTreeClassifier)**, Máquinas de Soporte Vectorial (SVC), entre otros. Para ello, se realizó una búsqueda de hiperparámetros mediante la técnica de **Grid Search con validación cruzada**, con el objetivo de optimizar la precisión del modelo y mejorar su capacidad de generalización.
 
-    Una vez identificado el mejor conjunto de hiperparámetros para el modelo: \n
+    Una vez identificado el mejor conjunto de hiperparámetros para el modelo seleccionado **Máquinas de Soporte Vectorial (SVC)**: \n
     **Datos de test:**  0.9175 \n
     **Datos de train:**  0.9152 \n
     **Mejor hiperparámetro:** {'C': 10, 'gamma': 'scale', 'kernel': 'rbf'} \n
