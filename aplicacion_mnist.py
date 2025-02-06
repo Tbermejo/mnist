@@ -57,8 +57,7 @@ def main():
     X_test = scaler.transform(X_test)
 
     #Cargar el modelo previamente entrenado
-    with open('model_trained_classifier_SVC_MinMaxScaler.pkl.gz', 'rb') as f:
-        model = pickle.load(f)
+    model = load_model()
 
     #Hacer predicciones sobre el conjunto de prueba
     y_pred = model.predict(X_test)
