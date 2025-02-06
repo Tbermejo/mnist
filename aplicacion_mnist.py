@@ -15,7 +15,7 @@ def preprocess_image(image):
 
 # Cargar el modelo entrenado
 def load_model():
-    filename = "model_trained_classifierSVC.pkl.gz"
+    filename = "model_trained_SVC_MinMaxScaler.pkl.gz"
     with gzip.open(filename, 'rb') as f:
         model = pickle.load(f)
     return model
