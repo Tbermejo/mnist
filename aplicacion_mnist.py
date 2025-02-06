@@ -66,12 +66,8 @@ def main():
         # Clasificar imagen
         if st.sidebar.button("Clasificar imagen"):
             model = load_model()
-            if model is not None:
-                try:
-                    prediction = model.predict(preprocessed_image)
-                    st.sidebar.success(f"🔢 La imagen fue clasificada como: '{prediction[0]}'.")
-                except Exception as e:
-                    st.error(f"Error al hacer la predicción: {e}")
+            prediction = model.predict(preprocess_image)
+            st.sidebar.success(f"🔢 La imagen fue clasificada como: '{prediction}'.") 
 
 if __name__ == "__main__":
     main()
