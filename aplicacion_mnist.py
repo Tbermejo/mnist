@@ -63,7 +63,7 @@ def main():
 
     #Hacer predicciones sobre el conjunto de prueba
     y_pred = model.predict(X_test)
-    y_pred_prob = model.predict_proba(X_test)[:, 1]  # Probabilidades para la clase positiva
+    y_pred_prob = model.predict(X_test)[:, 1]  # Probabilidades para la clase positiva
 
     #Calcular la matriz de confusión
     cm = confusion_matrix(y_test, y_pred)
