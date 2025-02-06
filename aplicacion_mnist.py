@@ -65,11 +65,13 @@ def main():
         with col2:
             st.image(image.convert('L').resize((28, 28)), caption="Imagen preprocesada", use_container_width=True)
         
-        if st.sidebar.button("Clasificar imagen"):
-            model = load_model()
-            prediction = model.predict(preprocessed_image)
-            st.sidebar.success(f"🔢 La imagen fue clasificada como: '{prediction}'.")
 
+        if st.button("Clasificar imagen"):
+            st.markdown("Imagen clasificada")
+              model = load_model()
+
+              prediction = model.predict(preprocessed_image.reshape(1,-1)) # (1, 784)
+              st.markdown(f"La imagen fue clasificada como: {prediction}")
 if __name__ == "__main__":
     main()
 
